@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,32 @@ public class WarnManager {
     }
 
     public void delWarn(Player playerWarned, int id, CommandSender staffWarner){
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM warn WHERE id = ? AND player_warned = ?");
+            preparedStatement.setInt(1,id);
+            preparedStatement.setString(2, playerWarned.getName());
 
+            preparedStatement.execute();
+
+            logger.info(staffWarner.getName() + " unwarned " + playerWarned.getName());
+            staffWarner.sendMessage(ChatColor.GREEN + "Vous avez bien unwarn " + playerWarned.getName());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean isIdCorrects(int id, String playerName){
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM warn WHERE id = ? AND player_warned = ?");
+            preparedStatement.setInt(1,id);
+            preparedStatement.setString(2,playerName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+
+            return resultSet.getInt(1) != 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<String[]> locker(String playerName){
