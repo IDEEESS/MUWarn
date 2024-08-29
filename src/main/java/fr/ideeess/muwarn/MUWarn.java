@@ -1,6 +1,7 @@
 package fr.ideeess.muwarn;
 
 import fr.ideeess.muwarn.commands.DelWarnCommand;
+import fr.ideeess.muwarn.commands.LockerCommand;
 import fr.ideeess.muwarn.commands.WarnCommand;
 import fr.ideeess.muwarn.database.Database;
 import fr.ideeess.muwarn.managers.ConfigManager;
@@ -34,6 +35,7 @@ public final class MUWarn extends JavaPlugin {
         //Commands
         getCommand("warn").setExecutor(new WarnCommand(this));
         getCommand("delwarn").setExecutor(new DelWarnCommand(this));
+        getCommand("casier").setExecutor(new LockerCommand(this));
     }
 
     @Override

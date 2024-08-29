@@ -20,7 +20,7 @@ public class DelWarnCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!sender.hasPermission("muwarn.warn")){
+        if (!sender.hasPermission("muwarn.delwarn")){
             sender.sendMessage(ChatColor.RED + "Vous n'avez pas la permission requise pour exécuter cette commande");
             return false;
         }

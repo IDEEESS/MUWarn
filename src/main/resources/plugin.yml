@@ -7,3 +7,5 @@ commands:
     description: Warn un joueur
   delwarn:
     description: Enlève le warn d'un joueur
+  casier:
+    description: Donne le casier d'un joueur

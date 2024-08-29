@@ -6,10 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -77,7 +74,27 @@ public class WarnManager {
         }
     }
 
-    public List<String[]> locker(String playerName){
-        return new ArrayList<>();
+    public List<String[]> getLocker(String playerName){
+
+        ArrayList<String[]> locker = new ArrayList<>();
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM warn WHERE player_warned = ?");
+            preparedStatement.setString(1,playerName);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                int id = resultSet.getInt("id");
+                String reason = resultSet.getString("reason");
+                String staff_who_warned = resultSet.getString("staff_who_warned");
+                Timestamp date = resultSet.getTimestamp("date");
+
+                locker.add(new String[]{String.valueOf(id),reason,staff_who_warned, date.toString()});
+            }
+            return locker;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
