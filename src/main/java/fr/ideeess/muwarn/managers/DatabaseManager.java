@@ -40,15 +40,16 @@ public class DatabaseManager {
         }
 
         try {
-            PreparedStatement statement = connection.prepareStatement("CREATE TABLE \"warn\" (\n" +
-                    "  \"id\" bigint unsigned NOT NULL AUTO_INCREMENT,\n" +
-                    "  \"player_warned\" varchar(255) DEFAULT NULL,\n" +
-                    "  \"reason\" text,\n" +
-                    "  \"staff_who_warned\" varchar(255) DEFAULT NULL,\n" +
-                    "  \"date\" timestamp NULL DEFAULT CURRENT_TIMESTAMP,\n" +
-                    "  PRIMARY KEY (\"id\"),\n" +
-                    "  UNIQUE KEY \"id\" (\"id\")\n" +
-                    ");");
+            PreparedStatement statement = connection.prepareStatement("""
+                    CREATE TABLE 'warn' (
+                      'id' bigint unsigned NOT NULL AUTO_INCREMENT,
+                      'player_warned' varchar(255) DEFAULT NULL,
+                      'reason' text,
+                      'staff_who_warned' varchar(255) DEFAULT NULL,
+                      'date' timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+                      PRIMARY KEY ('id'),
+                      UNIQUE KEY 'id' ('id')
+                    );""");
             statement.execute();
             logger.info("Table created successfully");
         } catch (SQLException e) {
