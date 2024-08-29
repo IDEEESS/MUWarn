@@ -1,0 +1,12 @@
+#---------------#
+#/             /#
+#/ Config file /#
+#/             /#
+#---------------#
+
+database:
+  host: yourhost
+  port: yourport
+  user: youruser
+  password: yourpassword
+  dbname: yourdbname

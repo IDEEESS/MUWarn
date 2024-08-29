@@ -1,0 +1,7 @@
+name: MUWarn
+version: '0.0.1'
+main: fr.ideeess.muwarn.MUWarn
+api-version: '1.20'
+commands:
+  warn:
+    description: Warn un joueur
